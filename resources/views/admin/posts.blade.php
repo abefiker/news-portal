@@ -12,65 +12,80 @@
                     <div class="card-header">
                         <h3 class="card-title">{{ $page }}</h3>
                     </div>
-                    <table class="table table-striped table-bordered table-hover table-responsive-sm posts-table">
+                    <table class="table table-striped table-bordered table-hover table-responsive-sm">
                         <thead>
                             <tr>
                                 <th>Title</th>
                                 <th>Short Description</th>
                                 <th>Views</th>
                                 <th>Date Created</th>
-                                <th>Action</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
-                        <!-- tbody will be populated via DataTables AJAX -->
+                        <tbody>
+                            @if ($posts->count() > 0)
+                                @foreach ($posts as $post)
+                                    <tr>
+                                        <td>{{ $post->title }}</td>
+                                        <td>{!! $post->short_desc !!}</td>
+                                        <td>{{ $post->views }}</td>
+                                        <td>{{ $post->created_at }}</td>
+                                        <td><a href="{{ route('admin.post.update.form', $post->id) }}"><i
+                                                    class="fa fa-eye"></i>/<i class="fa fa-edit"></i></a>
+                                        </td>
+                                        <td><a href="{{ route('admin.post.destroy', $post->id) }}"><i
+                                                    class="fa fa-trash text-danger"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <h3>No Events Found</h3>
+                            @endif
+                        </tbody>
                     </table>
                 </div>
             </div>
+
+            {{-- trashed table --}}
+
+            @if ($trashedPosts->count() > 0)
+                <div class="col-lg-12">
+                    <div class="card card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title">{{ $trash }}</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <table class="table table-striped table-bordered table-hover table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Short Description</th>
+                                    <th>Views</th>
+                                    <th>Deleted at</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($trashedPosts as $trash)
+                                    <tr>
+                                        <td>{{ $trash->title }}</td>
+                                        <td>{!! $trash->short_desc !!}</td>
+                                        <td>{{ $trash->views }}</td>
+                                        <td>{{ $trash->deleted_at }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.post.restore', $trash->id) }}"><i
+                                                    class="fa fa-undo"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @else
+                <h3>No trash posts</h3>
+            @endif
         </div>
     </div>
 @endsection
-
-@section('additional_scripts')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.posts-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('admin.posts') }}", // Make sure this route is defined in your routes/web.php
-                },
-                columns: [{
-                        data: 'title',
-                        name: 'title'
-                    },
-                    {
-                        data: 'short_desc',
-                        name: 'short_desc'
-                    },
-                    {
-                        data: 'views',
-                        name: 'views'
-                    },
-                    {
-                        data: 'created_at',
-                        name: 'created_at'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false
-                    }
-                ]
-            });
-
-            // Other initialization code...
-        });
-    </script>
-@endsection
-
-<!-- The rest of your HTML and scripts... -->

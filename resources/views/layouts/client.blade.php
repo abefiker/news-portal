@@ -24,7 +24,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>World Time</title>
+    <title>Genuine News</title>
     <!-- plugin css for this page -->
     <link rel="stylesheet" href="{{ asset('client/assets/vendors/mdi/css/materialdesignicons.min.css') }}" />
     <link rel="stylesheet" href="assets/vendors/aos/dist/aos.css/aos.css" />

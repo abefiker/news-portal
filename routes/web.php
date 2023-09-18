@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/',[App\Http\Controllers\FrontendController::class,'welcome']);
+Route::get('/send', [App\Http\Controllers\HomeController::class, 'sendnotification']);
 Route::middleware(['auth','admin'])->group(function () {
 
     Route::get('/admin/home' , [AdminController::class,'home']);
@@ -47,7 +48,8 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/admin/post/update/{id}',[AdminController::class ,'postUpdateForm'])->name('admin.post.update.form');
     Route::post('/admin/post/update/{id}',[AdminController::class ,'postUpdate'])->name('admin.post.update');
     Route::get('/admin/post/destroy/{id}',[AdminController::class ,'postDestroy'])->name('admin.post.destroy');
-
+    Route::get('/admin/post/restore/{id}',[AdminController::class ,'postRestore'])->name('admin.post.restore');
+   
     //events route
     Route::get('/admin/events',[AdminController::class , 'events'])->name('admin.events');
     Route::get('/admin/event/create',[AdminController::class ,'eventCreateForm'])->name('admin.event.create.form');

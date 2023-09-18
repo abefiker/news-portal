@@ -224,18 +224,29 @@
                                             <td>{{ $post->views }}</td>
                                             <td>{{ $post->category->title }}</td>
                                             @if (auth()->user()->is_admin)
-                                                <td>
+                                            <td>
+
+
+                                                <div class="btn-group">
                                                     <a href="{{ route('admin.post.update.form', $post->id) }}"
-                                                        class="text-primary">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="{{ route('admin.post.destroy', $post->id) }}"
-                                                        class="text-danger">
-                                                        <i class="fa fa-trash"></i>
-                                                    </a>
-                                                </td>
+                                                        class="edit btn btn-primary btn-sm">view/edit</a>
+                                                    <form action="{{ route('admin.post.destroy', $post->id) }}"
+                                                        method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                    </form>
+                                                    @if ($post->trashed())
+                                                        <form action="{{ route('admin.post.restore', $post->id) }}"
+                                                            method="POST" class="d-inline">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <button type="submit"
+                                                                class="btn btn-success btn-sm">Restore</button>
+                                                        </form>
+                                                    @endif
+                                                </div>
+                                            </td>
                                             @endif
                                         </tr>
                                     @endforeach

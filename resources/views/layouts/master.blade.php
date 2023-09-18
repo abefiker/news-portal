@@ -253,7 +253,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <a href="{{ route('admin.users') }}" class="nav-link">
                                         <i class="nav-icon fas fa-user"></i>
                                         <p>
-                                            Users
+                                            {{__('messages.users')}}
                                         </p>
                                     </a>
                                 </li>

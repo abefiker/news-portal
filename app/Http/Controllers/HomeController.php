@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Notification;
+use App\Models\User;
+use App\Notifications\SendEmailNotification;
 class HomeController extends Controller
 {
     /**
@@ -25,4 +27,19 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function sendnotification()
+    {
+        $user = User::all();
+        $details = [
+            'greeting' => 'hello greeting',
+            'body' => 'this is the message',
+            'actiontext' => 'subscribe to my channel',
+            'actionurl' => '/',
+            'lastline' => 'this is last line',
+        ];
+
+        Notification::send($user, new SendEmailNotification($details));
+        dd('done');
+    }
+
 }

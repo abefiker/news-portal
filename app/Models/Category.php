@@ -15,7 +15,16 @@ class Category extends Model
             'image',
             'desc'
     ];
+    protected static function boot()
+    {
+        parent::boot();
 
+        static::deleting(function ($category) {
+            if ($category->posts()->count() > 0) {
+                throw new \Exception('Category has associated posts and cannot be deleted.');
+            }
+        });
+    }
     public function posts(){
         return $this->hasMany('\App\Models\Post');
     }

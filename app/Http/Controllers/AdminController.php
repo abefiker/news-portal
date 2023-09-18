@@ -18,6 +18,12 @@ class AdminController extends Controller
 {
 
 
+    public function setLocale($locale)
+{
+    app()->setLocale($locale);
+    return view('master');
+}
+
     public static function welcome()
     {
         $settings = Setting::latest()->first();
@@ -171,38 +177,35 @@ class AdminController extends Controller
     public function categoryDestroy($id)
     {
         $category = Category::find($id);
+
+        if ($category->posts()->count() > 0) {
+            session()->flash('error', 'Category can not be delelted cause it has posts');
+            return back();
+        }
+
         $category->delete();
+        session()->flash('success', 'Category delelted successfully');
         return back();
     }
+
 
     //crud for post
     public function posts(Request $request)
     {
         $page = 'posts';
-        if ($request->ajax()) {
-            $data = Post::latest()->get();
-            if (auth()->user()->is_writer) {
-                $data = Post::where('user_id', auth()->id())->latest()->get();
-            }
-
-            return DataTables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function ($data) {
-                    $btns = '<div class="btn-group">
-            <a href="' . route('admin.post.update.form', $data->id) . '" class="edit btn btn-primary btn-sm">view/edit</a>
-            <a href="' . route('admin.post.destroy', $data->id) . '" class="btn btn-danger btn-sm">Delete</a></div>';
-                    return $btns;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-        return view('admin.posts', compact('page'));
+        $posts = Post::latest()->get();
+        $trash = 'Trashed Posts';
+        $trashedPosts = Post::onlyTrashed()->get();
+        return view('admin.posts', compact('page', 'posts', 'trash', 'trashedPosts'));
     }
+
+
 
     public function postCreateForm()
     {
         $page = 'create post';
         $categories = Category::latest()->get();
+
         return view('admin.create-post', \compact('page', 'categories'));
     }
     public function postCreate(Request $request)
@@ -258,12 +261,23 @@ class AdminController extends Controller
         session()->flash('success', 'Post updated successfully');
         return redirect()->route('admin.posts');
     }
+
     public function postDestroy($id)
     {
         $post = Post::find($id);
         $post->delete();
-        session()->flash('success', 'Post deleted successfully');
-        return back();
+        session()->flash('success', 'post deleted successfully');
+        return redirect()->route('admin.posts');
+    }
+
+
+
+    public function postRestore($id)
+    {
+        $post = Post::withTrashed()->findOrFail($id);
+        $post->restore();
+        session()->flash('success', 'post restored successfully');
+        return redirect()->route('admin.posts');
     }
 
     //crud for events
@@ -391,7 +405,8 @@ class AdminController extends Controller
             'title' => 'required',
             'category_id' => 'required',
             'url' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust as needed
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // Adjust as needed
         ]);
 
         // Check if the user is authenticated
