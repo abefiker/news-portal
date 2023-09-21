@@ -2,6 +2,11 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\PostsController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,39 +30,25 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/admin/settings/update' , [AdminController::class,'settingsUpdateForm'])->name('settings.update.form');
     Route::post('/admin/settings/update' , [AdminController::class,'settingsUpdate'])->name('settings.update');
     // user route
-    Route::get('/admin/users' , [AdminController::class,'users'])->name('admin.users');
+
     Route::get('/admin/writers' , [AdminController::class,'writers'])->name('admin.writers');
+
     Route::get('/admin/users/profile' , [AdminController::class,'profile'])->name('admin.profile');
-    Route::get('/admin/users/user/{id}' , [AdminController::class,'UpdateUserForm'])->name('admin.user.update.form');
-    Route::post('/admin/users/user/{id}' , [AdminController::class,'UpdateUser'])->name('admin.user.update');
+
+    Route::resource('/admin/users',UserController::class);
     Route::post('/admin/user/image/{id}' , [AdminController::class,'UpdateUserImage'])->name('admin.image.update');
-    Route::get('/admin/users/destroy/{id}' , [AdminController::class,'DestroyUser'])->name('admin.user.destroy');
-    //category route
-    Route::get('/admin/categories' , [AdminController::class,'categories'])->name('admin.categories');
-    Route::get('/admin/category/create' , [AdminController::class,'categoryCreateForm'])->name('admin.category.create.form');
-    Route::post('/admin/category/create' , [AdminController::class,'categoryCreate'])->name('admin.category.create');
-    Route::get('/admin/categories/update/{id}' , [AdminController::class,'categoryUpdateForm'])->name('admin.category.update.form');
-    Route::post('/admin/categories/update/{id}' , [AdminController::class,'categoryUpdate'])->name('admin.category.update');
-    Route::get('/admin/categories/destroy/{id}' , [AdminController::class,'categoryDestroy'])->name('admin.category.destroy');
+    Route::resource('/admin/categories',CategoryController::class);
 
 
     //post route
-    Route::get('/admin/posts',[AdminController::class , 'posts'])->name('admin.posts');
-    Route::get('/admin/post/create',[AdminController::class ,'postCreateForm'])->name('admin.post.create.form');
-    Route::post('/admin/post/create',[AdminController::class ,'postCreate'])->name('admin.post.create');
-    Route::get('/admin/post/update/{id}',[AdminController::class ,'postUpdateForm'])->name('admin.post.update.form');
-    Route::post('/admin/post/update/{id}',[AdminController::class ,'postUpdate'])->name('admin.post.update');
-    Route::get('/admin/post/destroy/{id}',[AdminController::class ,'postDestroy'])->name('admin.post.destroy');
-    Route::get('/admin/post/restore/{id}',[AdminController::class ,'postRestore'])->name('admin.post.restore');
-   
-    //events route
-    Route::get('/admin/events',[AdminController::class , 'events'])->name('admin.events');
-    Route::get('/admin/event/create',[AdminController::class ,'eventCreateForm'])->name('admin.event.create.form');
-    Route::post('/admin/event/create',[AdminController::class ,'eventCreate'])->name('admin.event.create');
-    Route::get('/admin/event/update/{id}',[AdminController::class ,'eventUpdateForm'])->name('admin.event.update.form');
-    Route::post('/admin/event/update/{id}',[AdminController::class ,'eventUpdate'])->name('admin.event.update');
-    Route::get('/admin/event/destroy/{id}',[AdminController::class ,'eventDestroy'])->name('admin.event.destroy');
 
+    Route::resource('/admin/posts', PostsController::class);
+    Route::get('/admin/posts/{post}/restore', [PostsController::class, 'restore'])->name('admin.posts.restore');
+
+
+    //events route
+
+    Route::resource('/admin/events',EventController::class);
     //admin writer request route
     Route::get('/admin/writer-requests',[AdminController::class ,'writer_requests'])->name('admin.writer.request');
     Route::get('/admin/writer-requests/approve/{id}',[AdminController::class ,'writer_requestsApprove'])->name('admin.writer_request.approve');
@@ -71,12 +62,13 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/admin/adverter-requests/bann/{id}',[AdminController::class ,'adverter_requestsBann'])->name('admin.advert_request.bann');
 
     //video route
-    Route::get('/admin/video',[AdminController::class , 'video'])->name('admin.video');
-    Route::get('/admin/video/create',[AdminController::class ,'videoCreateForm'])->name('admin.video.create.form');
-    Route::post('/admin/video/create',[AdminController::class ,'videoCreate'])->name('admin.video.create');
-    Route::get('/admin/video/update/{id}',[AdminController::class ,'videoUpdateForm'])->name('admin.video.update.form');
-    Route::post('/admin/video/update/{id}',[AdminController::class ,'videoUpdate'])->name('admin.video.update');
-    Route::get('/admin/video/destroy/{id}',[AdminController::class ,'videoDestroy'])->name('admin.video.destroy');
+    // Route::get('/admin/video',[AdminController::class , 'video'])->name('admin.video');
+    // Route::get('/admin/video/create',[AdminController::class ,'videoCreateForm'])->name('admin.video.create.form');
+    // Route::post('/admin/video/create',[AdminController::class ,'videoCreate'])->name('admin.video.create');
+    // Route::get('/admin/video/update/{id}',[AdminController::class ,'videoUpdateForm'])->name('admin.video.update.form');
+    // Route::post('/admin/video/update/{id}',[AdminController::class ,'videoUpdate'])->name('admin.video.update');
+    // Route::get('/admin/video/destroy/{id}',[AdminController::class ,'videoDestroy'])->name('admin.video.destroy');
+    Route::resource('/admin/videos', VideoController::class);
 });
 //Admin route
 

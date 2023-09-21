@@ -302,11 +302,11 @@
                     <div class="col-sm-12">
                         <div class="d-sm-flex justify-content-between align-items-center">
                             <div class="fs-14 font-weight-600">
-                                © 2023 @ <a href="/" target="_blank" class="text-white">
+                                ©  {{ date('Y') }} @ <a href="/" target="_blank" class="text-white">
                                     {{ $settings->site_name }}</a>. All rights reserved.
                             </div>
                             <div class="fs-14 font-weight-600">
-                                Handcrafted by <a href="https://github.com/abefiker" target="_blank"
+                                Developed by <a href="https://github.com/abefiker" target="_blank"
                                     class="text-white">ABEMELEK DANIEL</a>
                             </div>
                         </div>

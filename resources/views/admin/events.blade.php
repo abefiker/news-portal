@@ -19,8 +19,7 @@
                                     <th>Event title</th>
                                     <th>Description</th>
                                     <th>Date</th>
-                                    <th></th>
-                                    <th></th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -30,21 +29,16 @@
                                             <td>{{ $event->title }}</td>
                                             <td>{!! $event->desc !!}</td>
                                             <td>{{ $event->date }}</td>
-                                            <td><a href="{{ route('admin.event.update.form', $event->id) }}"><i
-                                                        class="fa fa-eye"></i>/<i class="fa fa-edit"></i></a>
-                                                @if (Session::has('success'))
-                                                    <script>
-                                                        toastr.success("{{ Session::get('success') }}");
-                                                    </script>
-                                                @endif
+                                            <td><a href="{{ route('events.edit', $event->id) }}"><i class="fa fa-eye"></i>/<i
+                                                        class="fa fa-edit"></i></a>
                                             </td>
-                                            <td><a href="{{ route('admin.event.destroy', $event->id) }}"><i
-                                                        class="fa fa-trash text-danger"></i></a>
-                                                @if (Session::has('success'))
-                                                    <script>
-                                                        toastr.success("{{ Session::get('success') }}");
-                                                    </script>
-                                                @endif
+                                            <td>
+                                                <form action="{{ route('events.destroy', $event->id) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-link"><i class="fa fa-trash text-danger"></i></button>
+                                                </form>
+
                                             </td>
                                         </tr>
                                     @endforeach

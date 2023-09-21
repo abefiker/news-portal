@@ -18,8 +18,7 @@
                                 <th>video title</th>
                                 <th>Url/Link</th>
                                 <th>Posted On</th>
-                                <th></th>
-                                <th></th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,20 +27,18 @@
                                     <tr>
                                         <td>{{ $video->title }}</td>
                                         <td>{!! $video->url !!}</td>
-                                        <td>{{ $video->created_at}}</td>
-                                        <td><a href="{{ route('admin.video.update.form', $video->id) }}"><i class="fa fa-eye"></i>/<i class="fa fa-edit"></i></a>
-                                            @if (Session::has('success'))
-                                                <script>
-                                                    toastr.success("{{ Session::get('success') }}");
-                                                </script>
-                                            @endif
+                                        <td>{{ $video->created_at }}</td>
+                                        <td><a href="{{ route('videos.edit', $video->id) }}">
+                                                <i class="fa fa-eye"></i>/<i class="fa fa-edit"></i>
+                                            </a>
                                         </td>
-                                        <td><a href="{{ route('admin.video.destroy', $video->id) }}"><i class="fa fa-trash text-danger"></i></a>
-                                            @if (Session::has('success'))
-                                                <script>
-                                                    toastr.success("{{ Session::get('success') }}");
-                                                </script>
-                                            @endif
+                                        <td>
+                                            <form action="{{ route('videos.destroy', $video->id) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-link">
+                                                    <i class="fa fa-trash text-danger"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

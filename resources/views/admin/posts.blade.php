@@ -30,11 +30,19 @@
                                         <td>{!! $post->short_desc !!}</td>
                                         <td>{{ $post->views }}</td>
                                         <td>{{ $post->created_at }}</td>
-                                        <td><a href="{{ route('admin.post.update.form', $post->id) }}"><i
-                                                    class="fa fa-eye"></i>/<i class="fa fa-edit"></i></a>
+                                        <td><a href="{{ route('posts.edit', $post->id) }}"><i
+                                                    class="fa fa-eye"></i>/<i class="fa fa-edit"></i>
+                                            </a>
                                         </td>
-                                        <td><a href="{{ route('admin.post.destroy', $post->id) }}"><i
-                                                    class="fa fa-trash text-danger"></i></a>
+                                        <td>
+                                            <form action="{{ route('posts.destroy', $post->id) }}"
+                                                 method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button
+                                                type="submit" class="btn btn-link">
+                                                <i class="fa fa-trash text-danger"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -73,7 +81,7 @@
                                         <td>{{ $trash->views }}</td>
                                         <td>{{ $trash->deleted_at }}</td>
                                         <td>
-                                            <a href="{{ route('admin.post.restore', $trash->id) }}"><i
+                                            <a href="{{ route('admin.posts.restore', $trash->id) }}"><i
                                                     class="fa fa-undo"></i>
                                             </a>
                                         </td>

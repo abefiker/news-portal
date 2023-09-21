@@ -40,8 +40,8 @@ return [
             'host' => env('MAIL_HOST', 'smtp.gmail.com'),
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME','securesally@gmail.com'),
-            'password' => env('MAIL_PASSWORD','dvxgvmuzffjdjusy'),
+            'username' => env('MAIL_USERNAME', 'securesally@gmail.com'),
+            'password' => env('MAIL_PASSWORD', 'dvxgvmuzffjdjusy'),
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
             'default' => env('MAIL_MAILER', 'smtp'),
@@ -53,16 +53,13 @@ return [
 
         'mailgun' => [
             'transport' => 'mailgun',
-            // 'client' => [
-            //     'timeout' => 5,
-            // ],
+            'domain' => env('MAILGUN_DOMAIN'),
+            'endpoint' => env('MAILGUN_ENDPOINT', 'api.eu.mailgun.net'),
         ],
 
         'postmark' => [
             'transport' => 'postmark',
-            // 'client' => [
-            //     'timeout' => 5,
-            // ],
+            'message_stream_id' => env('POSTMARK_MESSAGE_STREAM_ID'),
         ],
 
         'sendmail' => [

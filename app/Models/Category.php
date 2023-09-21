@@ -10,10 +10,10 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = [
-            'title',
-            'user_id',
-            'image',
-            'desc'
+        'title',
+        'user_id',
+        'image',
+        'desc'
     ];
     protected static function boot()
     {
@@ -25,11 +25,23 @@ class Category extends Model
             }
         });
     }
-    public function posts(){
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function posts()
+    {
         return $this->hasMany('\App\Models\Post');
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo('\App\Model\User');
     }
     public function video()

@@ -102,7 +102,7 @@
                                         <div class="card-header p-2">
                                             <ul class="nav nav-pills">
 
-                                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.users') }}"
+                                                <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}"
                                                         data-toggle="tab">User Profile</a></li>
                                             </ul>
                                         </div><!-- /.card-header -->
@@ -113,9 +113,10 @@
                                                 <div class="tab-pane active" id="settings">
 
 
-                                                    <form action="{{ route('admin.user.update', $user->id) }}"
+                                                    <form action="{{ route('users.update', $user->id) }}"
                                                         method="POST" class="form-horizontal">
                                                         @csrf
+                                                        $@method('PUT')
                                                         <div class="form-group row">
                                                             <label for="inputName"
                                                                 class="col-sm-2 col-form-label">Name</label>

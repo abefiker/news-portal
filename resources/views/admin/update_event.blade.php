@@ -31,9 +31,10 @@
                         <!-- /.card-header -->
                         <!-- form start -->
 
-                        <form role="form" method="post" action="{{ route('admin.event.update', $event->id) }}"
+                        <form role="form" method="post" action="{{ route('events.update', $event->id) }}"
                             enctype="multipart/form-data">
                             {{ csrf_field() }}
+                            @method('PUT')
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="title">Event Title</label>

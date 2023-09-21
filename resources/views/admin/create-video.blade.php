@@ -31,9 +31,10 @@
                         <!-- /.card-header -->
                         <!-- form start -->
 
-                        <form role="form" method="post" action="{{ route('admin.video.create') }}"
+                        <form role="form" method="post" action="{{ route('videos.store') }}"
                             enctype="multipart/form-data">
                             {{ csrf_field() }}
+                            @method('POST')
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="title">video Title</label>
@@ -66,11 +67,6 @@
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">create video</button>
-                                @if (Session::has('success'))
-                                    <script>
-                                        toastr.success("{{ Session::get('success') }}");
-                                    </script>
-                                @endif
                             </div>
                         </form>
 

@@ -31,39 +31,53 @@
                         <!-- /.card-header -->
                         <!-- form start -->
 
-                        <form role="form" method="post" action="{{route('admin.category.update' , $category->id)}}"
+                        <form role="form" method="post" action="{{ route('categories.update', $category->id) }}"
                             enctype="multipart/form-data">
                             {{ csrf_field() }}
+                            @method('PUT')
                             <div class="card-body">
+                                <div class="form-group">
+                                    <label for="parent_category">Parent Category</label>
+                                    <select name="parent_id" class="form-control">
+                                        @foreach ($categories as $cat)
+                                            <option value="{{ $cat->id }}"
+                                                @if ($category->parent_id == $cat->id) selected @endif>{{ $cat->title }}
+                                            </option>
+                                            @if ($cat->children->count())
+                                                @include('partials.subcategories', [
+                                                    'subcategories' => $cat->children,
+                                                    'prefix' => '--',
+                                                ])
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="title">Categoty Title</label>
-                                            <input type="text" name="title" value="{{$category->title}}" class="form-control" autocomplete="off" required>
+                                            <input type="text" name="title" value="{{ $category->title }}"
+                                                class="form-control" autocomplete="off" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="image">Category Image</label>
-                                            <input type="file" name="image" value="{{$category->image}}" class="form-control" autocomplete="off">
+                                            <input type="file" name="image" value="{{ $category->image }}"
+                                                class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="desc">Description</label>
-                                    <textarea name="desc" class="form-control" id="editor">{{$category->desc}}</textarea>
+                                    <textarea name="desc" class="form-control" id="editor">{{ $category->desc }}</textarea>
                                 </div>
-                                <input type="number" name="user_id" value="{{auth()->id()}}" autocomplete="off" hidden>
+                                <input type="number" name="user_id" value="{{ auth()->id() }}" autocomplete="off" hidden>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">update</button>
-                                @if (Session::has('success'))
-                                    <script>
-                                        toastr.success("{{ Session::get('success') }}");
-                                    </script>
-                                @endif
                             </div>
                         </form>
 

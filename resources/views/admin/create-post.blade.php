@@ -30,9 +30,10 @@
                         </div>
 
 
-                        <form role="form" method="post" action="{{ route('admin.post.create') }}"
+                        <form role="form" method="post" action="{{ route('posts.store') }}"
                             enctype="multipart/form-data">
                             {{ csrf_field() }}
+                            @method('POST')
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -54,19 +55,6 @@
                                                 @endif
                                             </select>
                                         </div>
-                                        {{-- <div class="form-group">
-                                            <label for="views">Tags</label>
-                                            <select name="tag_id" class="form-control" id="">
-                                                @if ($tags->count() > 0)
-                                                        @foreach ($tags as $tag)
-                                                            <option value="{{$tag->id}}">{{$tag->tag}}</option>
-                                                        @endforeach
-                                                @else
-
-                                                @endif
-                                            </select>
-                                        </div> --}}
-
                                         <div class="form-group">
                                             <label for="special">is a news special</label>
                                             <select name="special" class="form-control" id="">
@@ -106,11 +94,6 @@
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">create</button>
-                                @if (Session::has('success'))
-                                    <script>
-                                        toastr.success("{{ Session::get('success') }}");
-                                    </script>
-                                @endif
                             </div>
                         </form>
 

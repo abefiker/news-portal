@@ -31,9 +31,10 @@
                         <!-- /.card-header -->
                         <!-- form start -->
 
-                        <form role="form" method="post" action="{{ route('admin.event.create') }}"
+                        <form role="form" method="post" action="{{ route('events.store') }}"
                             enctype="multipart/form-data">
                             {{ csrf_field() }}
+                            @method('POST')
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="title">Event Title</label>
@@ -54,11 +55,6 @@
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">create</button>
-                                @if (Session::has('success'))
-                                    <script>
-                                        toastr.success("{{ Session::get('success') }}");
-                                    </script>
-                                @endif
                             </div>
                         </form>
 

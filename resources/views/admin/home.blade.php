@@ -35,7 +35,7 @@
                             <i class="ion ion-bag"></i>
                         </div>
                         @if (auth()->user()->is_admin)
-                            <a href="{{ route('admin.categories') }}" class="small-box-footer">More info <i
+                            <a href="{{ route('categories.index') }}" class="small-box-footer">More info <i
                                     class="fa fa-arrow-circle-right"></i></a>
                         @endif
                     </div>
@@ -52,7 +52,7 @@
                             <i class="ion ion-stats-bars"></i>
                         </div>
                         @if (auth()->user()->is_admin)
-                            <a href="{{ route('admin.posts') }}" class="small-box-footer">More info <i
+                            <a href="{{ route('posts.index') }}" class="small-box-footer">More info <i
                                     class="fa fa-arrow-circle-right"></i></a>
                         @endif
                     </div>
@@ -69,7 +69,7 @@
                             <i class="ion ion-person-add"></i>
                         </div>
                         @if (auth()->user()->is_admin)
-                            <a href="{{ route('admin.posts') }}" class="small-box-footer">More info <i
+                            <a href="{{ route('posts.index') }}" class="small-box-footer">More info <i
                                     class="fa fa-arrow-circle-right"></i></a>
                         @endif
                     </div>
@@ -121,7 +121,7 @@
                             <i class="ion ion-pie-graph"></i>
                         </div>
                         @if (auth()->user()->is_admin)
-                            <a href="{{ route('admin.events') }}" class="small-box-footer">More info <i
+                            <a href="{{ route('events.index') }}" class="small-box-footer">More info <i
                                     class="fa fa-arrow-circle-right"></i></a>
                         @endif
                     </div>
@@ -138,7 +138,7 @@
                             <i class="ion ion-play"></i>
                         </div>
                         @if (auth()->user()->is_admin)
-                            <a href="{{ route('admin.video') }}" class="small-box-footer">More info <i
+                            <a href="{{ route('videos.index') }}" class="small-box-footer">More info <i
                                     class="fa fa-arrow-circle-right"></i></a>
                         @endif
                     </div>
@@ -228,9 +228,9 @@
 
 
                                                 <div class="btn-group">
-                                                    <a href="{{ route('admin.post.update.form', $post->id) }}"
+                                                    <a href="{{ route('posts.edit', $post->id) }}"
                                                         class="edit btn btn-primary btn-sm">view/edit</a>
-                                                    <form action="{{ route('admin.post.destroy', $post->id) }}"
+                                                    <form action="{{ route('posts.destroy', $post->id) }}"
                                                         method="POST" class="d-inline">
                                                         @csrf
                                                         @method('DELETE')

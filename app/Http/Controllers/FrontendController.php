@@ -98,7 +98,6 @@ class FrontendController extends Controller
         } else {
             // If no request has been sent, create a new request
             Writer::create($request->all());
-
             // Set a session variable for success message
             session()->flash('success', 'Request saved successfully, we will call you for more information');
         }
@@ -143,7 +142,6 @@ class FrontendController extends Controller
     }
     public function clientEvents()
     {
-
         $events = Event::latest()->paginate(10);
         return view('client.event' , \compact('events'));
     }

@@ -28,9 +28,10 @@
                         <div class="card-header">
                             <h3 class="card-title">{{ $page }}</h3>
                         </div>
-                        <form role="form" method="post" action="{{ route('admin.video.update', $video->id) }}"
+                        <form role="form" method="post" action="{{ route('videos.update', $video->id) }}"
                             enctype="multipart/form-data">
                             {{ csrf_field() }}
+                            @method('PUT')
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="title">video Title</label>

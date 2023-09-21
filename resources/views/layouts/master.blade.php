@@ -154,13 +154,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="{{ route('admin.categories') }}" class="nav-link">
+                                        <a href="{{ route('categories.index') }}" class="nav-link">
                                             <i class="fa fa-list-alt nav-icon"></i>
                                             <p>Categories</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('admin.category.create.form') }}" class="nav-link">
+                                        <a href="{{ route('categories.create') }}" class="nav-link">
                                             <i class="fa fa-plus nav-icon"></i>
                                             <p>Create Category</p>
                                         </a>
@@ -180,7 +180,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <ul class="nav nav-treeview">
 
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.posts') }}" class="nav-link">
+                                    <a href="{{ route('posts.index') }}" class="nav-link">
                                         <i class="fa fa-wifi nav-icon"></i>
                                         <p>News</p>
                                     </a>
@@ -188,10 +188,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.post.create.form') }}" class="nav-link">
+                                    <a href="{{ route('posts.create')}}" class="nav-link">
                                         <i class="fa fa-plus nav-icon"></i>
                                         <p>Post News</p>
                                     </a>
+
                                 </li>
 
                             </ul>
@@ -200,7 +201,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         @if (auth()->check() && auth()->user()->is_admin)
                             @if (auth()->check())
                                 <li class="nav-item has-treeview">
-                                    <a href="{{ route('admin.events') }}" class="nav-link">
+                                    <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-calendar"></i>
                                         <p>
                                             Events
@@ -209,14 +210,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('admin.events') }}" class="nav-link">
+                                            <a href="{{ route('events.index') }}" class="nav-link">
                                                 <i class="fa fa-calendar nav-icon"></i>
                                                 <p>Events</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('admin.event.create.form') }}" class="nav-link">
-                                                <i class="fa fa-circle-o nav-icon"></i>
+                                            <a href="{{ route('events.create') }}" class="nav-link">
+                                                <i class="fa fa-plus nav-icon"></i>
                                                 <p>Post Events</p>
                                             </a>
                                         </li>
@@ -234,13 +235,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.video') }}" class="nav-link">
+                                    <a href="{{ route('videos.index') }}" class="nav-link">
                                         <i class="fa fa-video nav-icon"></i>
                                         <p>Videos</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.video.create') }}" class="nav-link">
+                                    <a href="{{ route('videos.create') }}" class="nav-link">
                                         <i class="fa fa-plus nav-icon"></i>
                                         <p>Post Videos</p>
                                     </a>
@@ -250,7 +251,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         @if (auth()->check() && auth()->user()->is_admin)
                             @if (auth()->check())
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.users') }}" class="nav-link">
+                                    <a href="{{ route('users.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-user"></i>
                                         <p>
                                             {{__('messages.users')}}
