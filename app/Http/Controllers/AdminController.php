@@ -120,36 +120,7 @@ class AdminController extends Controller
 
 
     //writer and adverter
-    public function writer_requests()
-    {
-        $page = 'Writer Request';
-        $writer_requests = Writer::latest()->get();
-        return view('admin.writer-request', compact('writer_requests', 'page'));
-    }
-    public function writer_requestsApprove($id)
-    {
-        $user = User::find($id);
-        $user->is_writer = 1;
-        $user->save();
-        session()->flash('success', 'user role successfully change to writer');
-        return back();
-    }
-
-    public function writer_requestsDestroy($id)
-    {
-        $writer = Writer::find($id);
-        $writer->delete();
-        session()->flash('success', 'Writer request deleted successfully');
-        return back();
-    }
-    public function writer_requestsBann($id)
-    {
-        $user = User::find($id);
-        $user->is_writer = 0;
-        $user->save();
-        session()->flash('success', 'user successfully ban from writer');
-        return back();
-    }
+   
     public function adverter_requests()
     {
         $page = 'Adverter Request';
@@ -179,7 +150,7 @@ class AdminController extends Controller
         session()->flash('success', 'user successfully ban from adverter');
         return back();
     }
-   
+
 
     public function UpdateUserImage(Request $request, $id)
     {

@@ -33,32 +33,22 @@
                                         @if ($adverter_request->user->is_adverter)
                                             <td><a
                                                     href="{{ route('admin.advert_request.bann', $adverter_request->user_id) }}"><i
-                                                        class="fa fa-ban text-danger">Ban Adverter</i></a>
-                                                @if (Session::has('success'))
-                                                    <script>
-                                                        toastr.success("{{ Session::get('success') }}");
-                                                    </script>
-                                                @endif
+                                                        class="fa fa-ban text-danger">Ban Adverter</i>
+                                                </a>
                                             </td>
                                         @else
-                                            <td><a
+                                            <td>
+                                                <a
                                                     href="{{ route('admin.advert_request.approve', $adverter_request->user_id) }}"><i
-                                                        class="fa fa-edit text-success">Approve Adverter</i></a>
-                                                @if (Session::has('success'))
-                                                    <script>
-                                                        toastr.success("{{ Session::get('success') }}");
-                                                    </script>
-                                                @endif
+                                                        class="fa fa-edit text-success">Approve Adverter</i>
+                                                </a>
                                             </td>
                                         @endif
-                                        <td><a
+                                        <td>
+                                            <a
                                                 href="{{ route('admin.advert_request.destroy', $adverter_request->user_id) }}"><i
-                                                    class="fa fa-trash text-danger"></i></a>
-                                            @if (Session::has('success'))
-                                                <script>
-                                                    toastr.success("{{ Session::get('success') }}");
-                                                </script>
-                                            @endif
+                                                    class="fa fa-trash text-danger"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

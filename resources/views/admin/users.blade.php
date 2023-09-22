@@ -61,7 +61,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.users') }}", // Make sure this route is defined in your routes/web.php
+                    url: "{{ route('users.index') }}", // Make sure this route is defined in your routes/web.php
                 },
                 columns: [{
                         data: 'name',

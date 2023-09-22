@@ -19,7 +19,7 @@
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Sent on</th>
-                                <th></th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,32 +34,21 @@
                                             @if ($writer_request->user->is_writer)
                                                 <td><a
                                                         href="{{ route('admin.writer_request.bann', $writer_request->user_id) }}"><i
-                                                            class="fa fa-ban text-danger">Ban Writer</i></a>
-                                                    @if (Session::has('success'))
-                                                        <script>
-                                                            toastr.success("{{ Session::get('success') }}");
-                                                        </script>
-                                                    @endif
+                                                            class="fa fa-ban text-danger">Ban Adverter</i>
+                                                    </a>
                                                 </td>
                                             @else
-                                                <td><a
+                                                <td>
+                                                    <a
                                                         href="{{ route('admin.writer_request.approve', $writer_request->user_id) }}"><i
-                                                            class="fa fa-edit text-success">Approve Writer</i></a>
-                                                    @if (Session::has('success'))
-                                                        <script>
-                                                            toastr.success("{{ Session::get('success') }}");
-                                                        </script>
-                                                    @endif
+                                                            class="fa fa-edit text-success">Approve Adverter</i>
+                                                    </a>
                                                 </td>
                                             @endif
-                                            <td><a
-                                                    href="{{ route('admin.writer_request.destroy', $writer_request->user_id) }}"><i
-                                                        class="fa fa-trash text-danger"></i></a>
-                                                @if (Session::has('success'))
-                                                    <script>
-                                                        toastr.success("{{ Session::get('success') }}");
-                                                    </script>
-                                                @endif
+                                            <td>
+                                                <a href="{{ route('writers.destroy', $writer_request->user_id) }}"><i
+                                                        class="fa fa-trash text-danger"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endif

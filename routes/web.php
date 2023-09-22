@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\WriterController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,29 +32,28 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('/admin/settings/update' , [AdminController::class,'settingsUpdate'])->name('settings.update');
     // user route
 
-    Route::get('/admin/writers' , [AdminController::class,'writers'])->name('admin.writers');
 
     Route::get('/admin/users/profile' , [AdminController::class,'profile'])->name('admin.profile');
-
-    Route::resource('/admin/users',UserController::class);
     Route::post('/admin/user/image/{id}' , [AdminController::class,'UpdateUserImage'])->name('admin.image.update');
+    //user route
+    Route::resource('/admin/users',UserController::class);
+
+    //category route
     Route::resource('/admin/categories',CategoryController::class);
 
-
     //post route
-
     Route::resource('/admin/posts', PostsController::class);
     Route::get('/admin/posts/{post}/restore', [PostsController::class, 'restore'])->name('admin.posts.restore');
 
 
     //events route
-
     Route::resource('/admin/events',EventController::class);
-    //admin writer request route
-    Route::get('/admin/writer-requests',[AdminController::class ,'writer_requests'])->name('admin.writer.request');
-    Route::get('/admin/writer-requests/approve/{id}',[AdminController::class ,'writer_requestsApprove'])->name('admin.writer_request.approve');
-    Route::get('/admin/writer-requests/destroy/{id}',[AdminController::class ,'writer_requestsDestroy'])->name('admin.writer_request.destroy');
-    Route::get('/admin/writer-requests/bann/{id}',[AdminController::class ,'writer_requestsBann'])->name('admin.writer_request.bann');
+
+    //writer request route
+    Route::put('/admin/writers/ban/{id}', 'WriterController@ban')->name('admin.writer_request.bann');
+    Route::get('/admin/writer-requests/bann/{id}',[WriterController::class ,'writer_requestsBann'])->name('admin.writer_request.bann');
+    Route::resource('/admin/writers', WriterController::class);
+
 
     //advert request route
     Route::get('/admin/adverter-requests',[AdminController::class ,'adverter_requests'])->name('admin.adverter.request');
@@ -62,12 +62,6 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/admin/adverter-requests/bann/{id}',[AdminController::class ,'adverter_requestsBann'])->name('admin.advert_request.bann');
 
     //video route
-    // Route::get('/admin/video',[AdminController::class , 'video'])->name('admin.video');
-    // Route::get('/admin/video/create',[AdminController::class ,'videoCreateForm'])->name('admin.video.create.form');
-    // Route::post('/admin/video/create',[AdminController::class ,'videoCreate'])->name('admin.video.create');
-    // Route::get('/admin/video/update/{id}',[AdminController::class ,'videoUpdateForm'])->name('admin.video.update.form');
-    // Route::post('/admin/video/update/{id}',[AdminController::class ,'videoUpdate'])->name('admin.video.update');
-    // Route::get('/admin/video/destroy/{id}',[AdminController::class ,'videoDestroy'])->name('admin.video.destroy');
     Route::resource('/admin/videos', VideoController::class);
 });
 //Admin route

@@ -86,7 +86,7 @@
                             <i class="fa fa-newspaper"></i>
                         </div>
                         @if (auth()->user()->is_admin)
-                            <a href="{{ route('admin.writer.request') }}" class="small-box-footer">More info <i
+                            <a href="{{ route('writers.index') }}" class="small-box-footer">More info <i
                                     class="fa fa-arrow-circle-right"></i></a>
                         @endif
                     </div>
@@ -155,7 +155,7 @@
                             <i class="fa fa-envelope"></i>
                         </div>
                         @if (auth()->user()->is_admin)
-                            <a href="{{ route('admin.video') }}" class="small-box-footer">More info <i
+                            <a href="{{ route('writers.index') }}" class="small-box-footer">More info <i
                                     class="fa fa-arrow-circle-right"></i></a>
                         @endif
                     </div>

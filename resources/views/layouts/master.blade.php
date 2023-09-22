@@ -262,7 +262,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                             @if (auth()->check())
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.writer.request') }}" class="nav-link">
+                                    <a href="{{ route('writers.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-edit"></i>
                                         <p>
                                             Writer Request
